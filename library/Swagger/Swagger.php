@@ -645,7 +645,7 @@ class Swagger
             } else {
                 $data = get_object_vars($data);
             }
-            if (count($data) === 0) {
+            if ( is_iterable($data) && count($data) === 0) {
                 return (object) $data; // empty object
             }
         }
