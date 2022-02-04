@@ -340,14 +340,14 @@ class Parser
      * The next non-whitespace, non-comment token.
      * @param array $tokens
      * @param Context $context
-     * @return string|array The next token (or false)
+     * @return string|array|false The next token (or false)
      */
     private function nextToken(&$tokens, $context) {
         $token = next($tokens);
-        if ($token[0] === T_WHITESPACE) {
+        if (is_array($token) && $token[0] === T_WHITESPACE) {
             return $this->nextToken($tokens, $context);
         }
-        if ($token[0] === T_COMMENT) {
+        if (is_array($token) && $token[0] === T_COMMENT) {
             $pos = strpos($token[1], '@SWG\\');
             if ($pos) {
                 $commentContext = new Context(array('line' => $token[2]), $context);
